@@ -1,0 +1,6 @@
+*.swp
+*.pyc
+*.swo
+__pychace__
+*.save
+db.sqlite3
