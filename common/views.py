@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.core.files.storage import default_storage
 
 from common.models import *
-from common.utils import compress
+from common.tasks import compress
 
 
 def index(request):
@@ -17,6 +17,10 @@ def index(request):
 def screenshot(request):
     u = User.objects.get(username='karrug')
     s = Screenshot.objects.create(user=u)
+
     f = request.FILES['file']
-    default_storage.save(s.get_name(), f)
+    name = s.get_name()
+    default_storage.save(name, f)
+
+    compress.delay(name)
     return HttpResponse(status=200)

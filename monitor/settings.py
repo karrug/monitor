@@ -25,7 +25,7 @@ SECRET_KEY = '*oz9lptar^tjya7k@mu2n*-gr9!@%*f=f_ft=)08g4r1tqohpe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,3 +123,4 @@ STATIC_URL = '/static/'
 APPEND_SLASH = False
 AUTH_USER_MODEL = "common.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+CELERY_BROKER_URL = 'redis://localhost:6379'
