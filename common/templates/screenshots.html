@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta
+      charset="utf-8">
+    <meta
+      name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <style type="text/css">
+      body {
+        max-width: 38rem;
+        padding: 2rem;
+        margin: auto;
+        color: #444;
+      }
+
+      div.gallery {
+        position: relative;
+        padding-bottom: 22rem;
+      }
+
+      div.gallery img {
+        position: absolute;
+        top: 0;
+        width: 38rem;
+      }
+      .btm {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+    </style>
+  </head>
+  <body>
+    {% for name, time in data %}
+    <div class="gallery">
+      <a target="_blank" href="/screenshots/{{ name }}.jpg">
+        <img src="/screenshots/{{ name }}.jpg" alt="{{ name }}">
+      </a>
+    </div>
+    <div class="desc">{{ time }}</div>
+    <hr class='btm'></hr>
+    {% endfor %}
+    </ul>
+  </body>
+</html>

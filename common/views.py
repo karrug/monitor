@@ -1,3 +1,4 @@
+import uuid
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -15,7 +16,12 @@ def index(request):
 
 @csrf_exempt
 def screenshot(request):
-    u = User.objects.get(username='karrug')
+    t = uuid.UUID(request.GET['token'])
+    try:
+        u = User.objects.get(token=t)
+    except User.DoesNotExist:
+        return HttpResponse(status=401)
+
     s = Screenshot.objects.create(user=u)
 
     f = request.FILES['file']
@@ -24,3 +30,10 @@ def screenshot(request):
 
     compress.delay(name)
     return HttpResponse(status=200)
+
+
+def list_screenshots(request):
+    ss = Screenshot.objects.all().order_by('-time')
+    ss = ss[:10]
+    data = [(s.get_name(), s.time) for s in ss]
+    return render(request, 'screenshots.html', {'data': data})
