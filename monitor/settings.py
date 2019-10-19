@@ -124,3 +124,4 @@ APPEND_SLASH = False
 AUTH_USER_MODEL = "common.User"
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CELERY_BROKER_URL = 'redis://localhost:6379'
+LOGIN_URL = '/signin'

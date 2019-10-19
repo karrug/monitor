@@ -1,46 +1,61 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta
-      charset="utf-8">
-    <meta
-      name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <style type="text/css">
-      body {
-        max-width: 38rem;
-        padding: 2rem;
-        margin: auto;
-        color: #444;
-      }
+{% extends 'base.html' %}
 
-      div.gallery {
-        position: relative;
-        padding-bottom: 22rem;
-      }
+{% block style %}
+<style>
+  div.gallery {
+    position: relative;
+    padding-bottom: 375px;
+  }
+  div.gallery img {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    border: 1px solid gray;
+  }
+  .btm {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .barlinks {
+    color: gray;
+    margin-right: 16px;
+  }
+</style>
+{% endblock %}
 
-      div.gallery img {
-        position: absolute;
-        top: 0;
-        width: 38rem;
-      }
-      .btm {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-      }
-    </style>
-  </head>
-  <body>
-    {% for name, time in data %}
-    <div class="gallery">
-      <a target="_blank" href="/screenshots/{{ name }}.jpg">
-        <img src="/screenshots/{{ name }}.jpg" alt="{{ name }}">
-      </a>
-    </div>
-    <div class="desc">{{ time }}</div>
-    <hr class='btm'></hr>
-    {% endfor %}
-    </ul>
-  </body>
-</html>
+
+{% block subhead %}
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='#'>Home</a></h3>
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='#'>Token</a></h3>
+<h3 style='display: inline;'><a class='barlinks' href='#'>{{ request.user.username }}</a></h3>
+{% endblock %}
+
+
+{% block content %}
+<h2>Screenshots</h2>
+{% for i in data %}
+<div class="gallery">
+  <a target="_blank" href="/screenshots/{{ i.get_name }}.jpg">
+    <img src="/screenshots/{{ i.get_name }}.jpg" alt="{{ i.get_name }}">
+  </a>
+</div>
+<div class="desc">{{ i.time }}</div>
+<hr class='btm'></hr>
+{% endfor %}
+
+<div class="pagination">
+  <span class="step-links">
+    {% if data.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ data.previous_page_number }}">previous</a>
+    {% endif %}
+    <span class="current">
+      Page {{ data.number }} of {{ data.paginator.num_pages }}.
+    </span>
+    {% if data.has_next %}
+    <a href="?page={{ data.next_page_number }}">next</a>
+    <a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}
