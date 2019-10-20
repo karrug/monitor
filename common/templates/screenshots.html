@@ -4,7 +4,7 @@
 <style>
   div.gallery {
     position: relative;
-    padding-bottom: 375px;
+    padding-bottom: 57.6923076923%;
   }
   div.gallery img {
     position: absolute;
@@ -25,9 +25,8 @@
 
 
 {% block subhead %}
-<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='#'>Home</a></h3>
-<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='#'>Token</a></h3>
-<h3 style='display: inline;'><a class='barlinks' href='#'>{{ request.user.username }}</a></h3>
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='{% url "index" %}'>Home</a></h3>
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='{% url "signout" %}'>Signout</a></h3>
 {% endblock %}
 
 

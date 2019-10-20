@@ -6,16 +6,14 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.files.storage import default_storage
 from django.core.paginator import Paginator
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 from common.models import *
 from common.tasks import compress
 
 
 def index(request):
-    c = Screenshot.objects.count()
-    c = 'Total screenshots: %d' % c
-    return HttpResponse(c)
+    return render(request, 'index.html')
 
 
 @csrf_exempt
@@ -68,3 +66,8 @@ def signin(request):
         else:
             return HttpResponse(status=401)
     return render(request, 'signin.html')
+
+
+def signout(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('index'))

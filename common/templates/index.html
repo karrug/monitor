@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block subhead %}
+{% if user.is_authenticated %}
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='{% url "list_screenshots" %}'>Screenshots</a></h3>
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='{% url "signout" %}'>Signout</a></h3>
+{% else %}
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='{% url "signin" %}'>Signin</a></h3>
+<h3 style='display: inline;'><a style='color: gray; margin-right: 18px;' href='{% url "signup" %}'>Signup</a></h3>
+{% endif %}
+{% endblock %}
+
+
+{% block content %}
+<h2>Simple, Stupid and useful monitoring tool.</h2>
+<ul>
+  <li>Lightweigh client, all it does is take screenshots.</li>
+  <li>Clean web ui, nothing else to show.</li>
+  <li>Mozjpeg compression, screenshots are ugly but cheap to store, fast to retrieve!</li>
+</ul>
+<h3>Client</h3>
+<p>Written in python, packaged with pyinstaller, all it does is take fullscreenshot at random and send the image to server. Authentication is based on token, goto the website to get your token.</p>
+<p><a href="/downloads/monitor">Linux(v0.1)</a>, <a href="#">Windows(comming soon)</a>, <a href="#">Mac(comming soon)</a></p>
+<hr>
+{% endblock %}
