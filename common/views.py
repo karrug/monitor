@@ -48,7 +48,9 @@ def signup(request):
         n = request.POST['username']
         e = request.POST['email']
         p = request.POST['password']
-        u = User.objects.create(username=n, email=e, password=p)
+        u = User.objects.create(username=n, email=e)
+        u.set_password(p)
+        u.save()
         next = request.GET.get('next', reverse('list_screenshots'))
         return HttpResponseRedirect(next)
     return render(request, 'signup.html')
@@ -58,6 +60,7 @@ def signin(request):
     if request.method == 'POST':
         n = request.POST['username']
         p = request.POST['password']
+        print(n, p)
         u = authenticate(username=n, password=p)
         if u:
             login(request, u)
